@@ -1,4 +1,3 @@
-import mongoose, { Model, model, Schema } from "mongoose"
 
 /*
   Campos:
@@ -9,7 +8,7 @@ import mongoose, { Model, model, Schema } from "mongoose"
 
  */
 import {Schema} from "mongoose"
-import {Model} from "mongoose"
+import {model} from "mongoose"
 
 const productsSchema = new Schema({
     name: {
@@ -36,4 +35,4 @@ const productsSchema = new Schema({
 }
 );
 
-export default model("Products". productsSchema);
+export default model("Products", productsSchema);
