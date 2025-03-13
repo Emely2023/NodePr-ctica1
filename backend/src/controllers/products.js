@@ -1,7 +1,7 @@
 // Array de métodos ( C R U D)
 const productsController = {};
 
-import Products from "../models/Products.js";
+
 import productsModel from "../models/Products.js"
 
 //SELECT
