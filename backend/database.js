@@ -1,11 +1,17 @@
 
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+import { config } from "./config.js";
+
 
 //1- Confuguro la URI o dirección de la base de datos
-const URI = "mongodb://localhost:27017/ZonaDigitalDB20230621";
+//const URI = "mongodb://localhost:27017/ZonaDigitalDB20230621";
 
 //- Conecto la base de datos 
-mongoose.connect(URI);
+mongoose.connect(config.db.URI);
 
 // Comprobar  que todo funciona
 
