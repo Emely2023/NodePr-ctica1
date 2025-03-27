@@ -2,7 +2,7 @@
 const empleadoscontroller = {};
 
 
-import empleadosmodel from "../models/empleados.js";
+import empleadosmodel from "../models/Empleados.js";
 
 //SELECT
 empleadoscontroller.getEmpleados = async (req, res) => {

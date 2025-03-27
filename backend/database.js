@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-import { config } from "./config.js";
+import { config } from "./src/config.js";
 
 
 //1- Confuguro la URI o dirección de la base de datos
