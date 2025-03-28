@@ -22,6 +22,7 @@ app.use("/api/empleados",empleados);
 //app.use("/api/sucursales",sucursalesRoutes);
 app.use("/api/reviews",Reviews);
 app.use("/api/registerEmployee",registerEmployeesRoutes);
+app.use("/api/login")
 
 
 
