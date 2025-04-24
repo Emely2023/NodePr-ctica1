@@ -4,7 +4,7 @@ import {config} from "../config.js";
 //Configurar el transporter
 //Quien envia el correo??
 
-const transporter = nodemailer.createTransport8({
+const transporter = nodemailer.createTransport({
     host: "smpt.gmail.com",
     port: 465,
     secure: true,
