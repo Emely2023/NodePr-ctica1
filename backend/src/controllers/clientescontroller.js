@@ -2,7 +2,7 @@
 const clientescontroller = {};
 
 
-import ClientesModel from "../models/clientes.js";
+import ClientesModel from "../models/Clientes.js";
 
 //SELECT
 clientescontroller.getClientes = async (req, res) => {

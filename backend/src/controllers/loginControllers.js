@@ -1,4 +1,4 @@
-import Clientes from "../models/clientes.js"
+import Clientes from "../models/Clientes.js"
 import Empleados from "../models/Empleados.js"
 import bcrypt from "bcryptjs" // Encriptar
 import jsonwebtoken from "jsonwebtoken";
