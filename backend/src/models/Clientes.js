@@ -13,6 +13,7 @@ Campos
    import {Schema} from "mongoose"
    import {model} from "mongoose"
    
+   
    const ClientesSchema = new Schema({
        name: {
            type: String,

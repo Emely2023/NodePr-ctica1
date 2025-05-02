@@ -9,7 +9,7 @@ empleadoscontroller.getEmpleados = async (req, res) => {
 const empleados = await empleadosmodel.find()
 res.json(empleados)
 }
-
+//INSERT
 empleadoscontroller.createEmpleados = async (req, res) => {
     const{ name, lastName, birthday,email, address,hireDate,password, telephone, dui, isssNumber, isVerified  } = req.body;
     const newEmpleado = new empleadosmodel ({name, lastName, birthday,email, address,hireDate,password, telephone, dui, isssNumber, isVerified });

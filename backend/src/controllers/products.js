@@ -18,16 +18,19 @@ productsController.createProducts = async (req, res) => {
     res.json({ message : "product saved"});
 }
     //DELETE
-productsController.deleteProducts = async (req, res) => {
-    await productsModel.findOneAndDelete(req.params.id)
-    res.json({message:"product deleted"})
-}
+    productsController.deleteProducts = async (req, res) => {
+        const deletedProduct = await productsModel.findByIdAndDelete(req.params.id);
+        if (!deletedProduct) {
+          return res.status(404).json({ message: "Producto no encontrado" });
+        }
+        res.json({ message: "product deleted" });
+      };
 
 //UPDATE
 productsController.updateProducts = async (req, res) => {
    //  Solicito todos los valores
     const {name, description, price, stock} = req.body;
-
+    //Actualizo
     await productsModel.findByIdAndUpdate(req.params.id,{
        name,
        description,

@@ -55,7 +55,7 @@ loginController.login = async(req,res)=> {
 
     //TOKEN 
 
-    //PARA VALIDAR
+    //PARA VALIDAR QUE SE LOGEO
     jsonwebtoken.sign(
         //1-Que voy a guardar
         {id: userFound._id, userType},

@@ -2,6 +2,7 @@ import empleadosmodel from "../models/Empleados.js"
 import bcrypyjs from "bcryptjs" ; //Encriptar
 import Jsonwebtoken from "jsonwebtoken"; //Token
 import {config} from "../config.js";
+import empleadoscontroller from "./empleadoscontroller.js";
 
 // creamos una array de funciones
 const registerEmployeesController = {};
