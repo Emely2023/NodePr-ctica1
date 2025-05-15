@@ -1,5 +1,5 @@
 import express from "express";
-import providerController from "../controllers/providersController";
+import providerController from "../controllers/providersController.js";
 import multer from "multer"
 
 const router = express.Router();
@@ -10,6 +10,6 @@ const upload = multer({dest: "public/"})
 
 router.route("/")
 .get(providerController.getAllProviders)
-.post(providerController.insertProviders);
+.post(upload.single("image"),providerController.insertProviders);
 
 export default router;
