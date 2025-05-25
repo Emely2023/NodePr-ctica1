@@ -27,7 +27,10 @@ const productsSchema = new Schema({
         type: Number,
         require: true,
         min: 0
-    }
+    },
+     imagen:{
+            type: String
+        }
 
 },{
     timestamps : true,

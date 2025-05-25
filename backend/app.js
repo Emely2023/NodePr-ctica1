@@ -2,7 +2,7 @@
 import express from "express";
 import productsRoutes from "./src/routes/products.js";
 import clientes from "./src/routes/clientes.js";
-import empleados from "./src/routes/empleados.js";
+import empleadosRoutes from "./src/routes/empleados.js";
 import Reviews from "./src/routes/reviews.js";
 import registerEmployeesRoutes from "./src/routes/registerEmployees.js"
 import cookieParser from "cookie-parser";
@@ -37,9 +37,10 @@ app.use(express.json());
 app.use(cookieParser())
 
 // definir las rutas de las funciones que tendrá la página
-app.use("/api/products", validateAuthToken (["admin", "employee"]), productsRoutes);   
+//app.use("/api/products", validateAuthToken (["admin", "employee"]), productsRoutes);  
+app.use("/api/products", productsRoutes);    
 app.use("/api/clientes", clientes);
-app.use("/api/empleados",empleados);
+app.use("/api/employees",empleadosRoutes);
 app.use("/api/branches", branchesRoutes);
 
 //app.use("/api/sucursales",sucursalesRoutes);
@@ -54,7 +55,8 @@ app.use("/api/registerClients",registerClientsRoutes)
 
 app.use("/api/recoveryPassword",recoveryPasswordRoutes);
 //ruta de Providers
-app.use("/api/providers", validateAuthToken(["admin"]), providersRoutes);
+//app.use("/api/providers", validateAuthToken(["admin"]), providersRoutes);
+app.use("/api/providers", providersRoutes);
 app.use("/api/brands",brandsRoutes);
 
 

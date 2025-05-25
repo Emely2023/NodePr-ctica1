@@ -1,16 +1,16 @@
+// src/components/Products/ListProducts.jsx
 import React from "react";
-import CardProduct from "../Products/ProductCard";
+import ProductCard from "./ProductCard";
 
-const ListProducts = ({ deleteProduct, updateProduct, loading, products }) => {
+const ListProducts = ({ products, deleteProduct, updateProduct, loading }) => {
+  if (loading) return <p>Cargando productos...</p>;
+
   return (
-    <>
-      <h1 className="text-2xl font-bold underline text-center">
-        Listado de productos
-      </h1>
-      <div className="flex flex-wrap gap-4 justify-center mt-5">
-        {loading && <div className="text-center text-gray-500">Loading...</div>}
-        {products?.map((product) => (
-          <CardProduct
+    <div>
+      <h2>Lista de Productos</h2>
+      <div className="product-list">
+        {products.map((product) => (
+          <ProductCard
             key={product._id}
             product={product}
             deleteProduct={deleteProduct}
@@ -18,7 +18,7 @@ const ListProducts = ({ deleteProduct, updateProduct, loading, products }) => {
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
