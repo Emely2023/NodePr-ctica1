@@ -1,9 +1,7 @@
 // src/components/Employees/hooks/useDataEmployees.js
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 const API_URL = "http://localhost:4000/api/employees";
-
 
 const useDataEmployees = () => {
   const [employees, setEmployees] = useState([]);
@@ -24,10 +22,14 @@ const useDataEmployees = () => {
   });
   const [activeTab, setActiveTab] = useState("list");
 
+  // GET
   const getEmployees = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/employees");
-      setEmployees(res.data);
+      setLoading(true);
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error("Error al obtener empleados");
+      const data = await res.json();
+      setEmployees(data);
     } catch (error) {
       console.error("Error al obtener empleados:", error);
     } finally {
@@ -39,57 +41,76 @@ const useDataEmployees = () => {
     getEmployees();
   }, []);
 
+  // Cambio en los inputs
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: type === "checkbox" ? checked : value,
-    });
+    }));
   };
 
+  // POST o PUT
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      if (formData._id) {
-        await axios.put(`http://localhost:4000/api/employees/${formData._id}`, formData);
-      } else {
-        await axios.post("http://localhost:4000/api/employees", formData);
-      }
+      const method = formData._id ? "PUT" : "POST";
+      const url = formData._id ? `${API_URL}/${formData._id}` : API_URL;
 
-      getEmployees();
-      setFormData({
-        name: "",
-        lastname: "",
-        birthday: "",
-        email: "",
-        address: "",
-        hiredate: "",
-        password: "",
-        telephone: "",
-        dui: "",
-        isssNumber: "",
-        isVerified: false,
-        _id: null,
+      const res = await fetch(url, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+
+      if (!res.ok) throw new Error("Error al guardar empleado");
+
+      await getEmployees();
+      resetForm();
       setActiveTab("list");
     } catch (error) {
       console.error("Error al guardar empleado:", error);
     }
   };
 
+  // DELETE
   const deleteEmployee = async (id) => {
     try {
-      await axios.delete(`http://localhost:4000/api/employees/${id}`);
-      getEmployees();
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Error al eliminar empleado");
+      await getEmployees();
     } catch (error) {
       console.error("Error al eliminar empleado:", error);
     }
   };
 
+  // Cargar datos en el formulario para editar
   const updateEmployee = (employee) => {
     setFormData({ ...employee });
     setActiveTab("form");
+  };
+
+  // Reset del formulario
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      lastname: "",
+      birthday: "",
+      email: "",
+      address: "",
+      hiredate: "",
+      password: "",
+      telephone: "",
+      dui: "",
+      isssNumber: "",
+      isVerified: false,
+      _id: null,
+    });
   };
 
   return {

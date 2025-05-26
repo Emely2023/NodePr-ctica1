@@ -1,15 +1,14 @@
+// src/routes/providers.routes.js
 import express from "express";
+import multer from "multer";
 import providerController from "../controllers/providersController.js";
-import multer from "multer"
 
 const router = express.Router();
+const upload = multer({ dest: "uploads/" });
 
-//Configurar una carpeta local que guarde 
-//el registro de las imagenes subidas
-const upload = multer({dest: "public/"})
-
-router.route("/")
-.get(providerController.getAllProviders)
-.post(upload.single("image"),providerController.insertProviders);
+router.get("/", providerController.getAllProviders);
+router.post("/", upload.single("image"), providerController.insertProviders);
+router.put("/:id", upload.single("image"), providerController.updateProvider);
+router.delete("/:id", providerController.deleteProvider);
 
 export default router;

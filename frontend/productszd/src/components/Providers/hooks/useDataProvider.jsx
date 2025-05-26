@@ -1,21 +1,24 @@
-// src/components/Providers/hooks/useDataProviders.jsx
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 const API_URL = "http://localhost:4000/api/providers";
 
 const useDataProviders = () => {
   const [providers, setProviders] = useState([]);
-  const [formData, setFormData] = useState({ name: "", telephone: "" });
-  const [image, setImage] = useState(null); // NUEVO: imagen como archivo
+  const [formData, setFormData] = useState({
+    name: "",
+    telephone: "",
+    image: null,// Puede ser archivo o URL
+    _id: null,
+  });
   const [loading, setLoading] = useState(true);
-  const [editingId, setEditingId] = useState(null);
-  const [activeTab, setActiveTab] = useState("form");
+  const [activeTab, setActiveTab] = useState("list");
 
   const fetchProviders = async () => {
     try {
-      const res = await axios.get(API_URL);
-      setProviders(res.data);
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error("Error fetching providers");
+      const data = await res.json();
+      setProviders(data);
     } catch (err) {
       console.error("Error fetching providers:", err);
     } finally {
@@ -28,38 +31,47 @@ const useDataProviders = () => {
   }, []);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+    const file = e.target.files[0];
+    setFormData((prev) => ({ ...prev, image: file }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      if (editingId) {
-        // PUT sin imagen (esto depende de si tu backend permite PUT con multipart/form-data)
-        await axios.put(`${API_URL}/${editingId}`, formData);
-      } else {
-        // POST con imagen (FormData)
-        const dataToSend = new FormData();
-        dataToSend.append("name", formData.name);
-        dataToSend.append("telephone", formData.telephone);
-        if (image) {
-          dataToSend.append("image", image);
-        }
+    const dataToSend = new FormData();
+    dataToSend.append("name", formData.name);
+    dataToSend.append("telephone", formData.telephone);
+    if (formData.image && typeof formData.image !== "string") {
+      dataToSend.append("image", formData.image);
+    }
 
-        await axios.post(API_URL, dataToSend, {
-          headers: { "Content-Type": "multipart/form-data" }
-        });
+    try {
+      let url = API_URL;
+      let method = "POST";
+
+      if (formData._id) {
+        url = `${API_URL}/${formData._id}`;
+        method = "PUT";
       }
 
-      setFormData({ name: "", telephone: "" });
-      setImage(null);
-      setEditingId(null);
+      const res = await fetch(url, {
+        method,
+        body: dataToSend,
+        // No hay que poner Content-Type con fetch y FormData, el navegador lo pone automáticamente
+      });
+
+      if (!res.ok) {
+        throw new Error(`Error submitting provider (${method}): ${res.statusText}`);
+      }
+
+      resetForm();
       fetchProviders();
+      setActiveTab("list");
     } catch (err) {
       console.error("Error submitting provider:", err);
     }
@@ -67,7 +79,12 @@ const useDataProviders = () => {
 
   const deleteProvider = async (id) => {
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      const res = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Error deleting provider");
+
       fetchProviders();
     } catch (err) {
       console.error("Error deleting provider:", err);
@@ -75,12 +92,22 @@ const useDataProviders = () => {
   };
 
   const updateProvider = (provider) => {
+  setFormData({
+    name: provider.name,
+    telephone: provider.telephone,
+    image: null, 
+    _id: provider._id,
+  });
+  setActiveTab("form");
+};
+
+  const resetForm = () => {
     setFormData({
-      name: provider.name,
-      telephone: provider.telephone
+      name: "",
+      telephone: "",
+      image: null,
+      _id: null,
     });
-    setEditingId(provider._id);
-    setActiveTab("form");
   };
 
   return {
@@ -93,7 +120,7 @@ const useDataProviders = () => {
     updateProvider,
     loading,
     activeTab,
-    setActiveTab
+    setActiveTab,
   };
 };
 

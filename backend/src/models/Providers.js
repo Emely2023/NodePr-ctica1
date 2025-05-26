@@ -16,7 +16,7 @@ campos:
         telephone:{
             type: String
         },
-        imagen:{
+        image:{
             type: String
         }
     },{

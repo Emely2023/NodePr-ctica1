@@ -1,4 +1,3 @@
-// src/pages/Provider.jsx
 import React from "react";
 import useDataProviders from "../components/Providers/hooks/useDataProvider";
 import RegisterProvider from "../components/Providers/RegisterProvider";
@@ -9,14 +8,13 @@ const Provider = () => {
     activeTab,
     setActiveTab,
     formData,
-    setFormData,
-    setImage,
+    handleImageChange,
     handleChange,
     handleSubmit,
     providers,
     deleteProvider,
     updateProvider,
-    loading
+    loading,
   } = useDataProviders();
 
   return (
@@ -29,10 +27,9 @@ const Provider = () => {
       {activeTab === "form" ? (
         <RegisterProvider
           formData={formData}
-          setFormData={setFormData}
           handleChange={handleChange}
+          handleImageChange={handleImageChange}
           handleSubmit={handleSubmit}
-          setImage={setImage}
         />
       ) : (
         <ListProviders

@@ -34,8 +34,12 @@ const RegisterProvider = ({
         name="image"
         accept="image/*"
         onChange={handleImageChange}
-        required
+        
       />
+     {typeof formData.image === "string" && (
+  <img src={formData.image} alt="Proveedor actual" width={100} />
+)}
+
 
       <button type="submit">
         {formData._id ? "Actualizar" : "Guardar"}
