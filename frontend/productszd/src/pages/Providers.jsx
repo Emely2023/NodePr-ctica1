@@ -1,31 +1,49 @@
+// src/pages/Provider.jsx
 import React from "react";
-import useDataProvider  from "../components/Providers/hooks/useDataProvider";
+import useDataProviders from "../components/Providers/hooks/useDataProvider";
+import RegisterProvider from "../components/Providers/RegisterProvider";
 import ListProviders from "../components/Providers/ListProviders";
-import RegisterProvider from "../components/Providers/ListProviders";;
 
-const Providers = () => {
-  const data = useDataProvider();
-return (
-   <div>
-      <div>
-        <button onClick={() => setActiveTab("form")}>Formulario</button>
-        <button onClick={() => setActiveTab("list")}>Lista</button>
+const Provider = () => {
+  const {
+    activeTab,
+    setActiveTab,
+    formData,
+    setFormData,
+    setImage,
+    handleChange,
+    handleSubmit,
+    providers,
+    deleteProvider,
+    updateProvider,
+    loading
+  } = useDataProviders();
+
+  return (
+    <div className="provider-page">
+      <div className="tab-buttons">
+        <button onClick={() => setActiveTab("form")}>Nuevo Proveedor</button>
+        <button onClick={() => setActiveTab("list")}>Ver Lista</button>
       </div>
+
       {activeTab === "form" ? (
         <RegisterProvider
           formData={formData}
+          setFormData={setFormData}
           handleChange={handleChange}
           handleSubmit={handleSubmit}
+          setImage={setImage}
         />
       ) : (
         <ListProviders
           providers={providers}
           deleteProvider={deleteProvider}
           updateProvider={updateProvider}
+          loading={loading}
         />
       )}
     </div>
   );
 };
 
-export default Providers;
+export default Provider;

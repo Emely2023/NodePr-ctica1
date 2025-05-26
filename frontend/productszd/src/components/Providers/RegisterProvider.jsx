@@ -1,9 +1,14 @@
 // src/components/Providers/RegisterProvider.jsx
 import React from "react";
 
-const RegisterProvider = ({ formData, handleChange, handleSubmit }) => {
+const RegisterProvider = ({
+  formData,
+  handleChange,
+  handleSubmit,
+  handleImageChange
+}) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <h2>{formData._id ? "Editar Proveedor" : "Registrar Proveedor"}</h2>
 
       <input
@@ -11,7 +16,7 @@ const RegisterProvider = ({ formData, handleChange, handleSubmit }) => {
         name="name"
         value={formData.name}
         onChange={handleChange}
-        placeholder="Nombre del proveedor"
+        placeholder="Nombre"
         required
       />
 
@@ -25,11 +30,11 @@ const RegisterProvider = ({ formData, handleChange, handleSubmit }) => {
       />
 
       <input
-        type="text"
-        name="imagen"
-        value={formData.imagen}
-        onChange={handleChange}
-        placeholder="URL de la imagen"
+        type="file"
+        name="image"
+        accept="image/*"
+        onChange={handleImageChange}
+        required
       />
 
       <button type="submit">

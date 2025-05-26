@@ -1,3 +1,4 @@
+// src/components/Employees/ListEmployees.jsx
 import React from "react";
 import CardEmployee from "./CardEmployee";
 
@@ -8,10 +9,10 @@ const ListEmployees = ({ employees, deleteEmployee, updateEmployee, loading }) =
     <div>
       <h2>Lista de Empleados</h2>
       <div className="employee-list">
-        {employees.map((employee) => (
+        {employees.map((emp) => (
           <CardEmployee
-            key={employee._id}
-            employee={employee}
+            key={emp._id}
+            employee={emp}
             deleteEmployee={deleteEmployee}
             updateEmployee={updateEmployee}
           />

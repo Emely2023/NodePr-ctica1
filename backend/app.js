@@ -25,6 +25,7 @@ app.use(
     origin: "http://localhost:5173",
     // Permitir envío de cookies y credenciales
     credentials: true
+    
   })
 );
 
@@ -46,8 +47,8 @@ app.use("/api/branches", branchesRoutes);
 //app.use("/api/sucursales",sucursalesRoutes);
 app.use("/api/reviews",Reviews);
 
-
-app.use("/api/registerEmployee", validateAuthToken (["admin"]), registerEmployeesRoutes);
+app.use("/api/registerEmployee",registerEmployeesRoutes);
+//app.use("/api/registerEmployee", validateAuthToken (["admin"]), registerEmployeesRoutes);
 app.use("/api/login",loginRoutes)
 app.use("/api/logout",logoutRoutes)
 
