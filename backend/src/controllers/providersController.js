@@ -1,4 +1,4 @@
-import ProviderModel from "../models/providers.js";
+import ProviderModel from "../models/Providers.js";
 import { v2 as cloudinary } from "cloudinary";
 import { config } from "../config.js";
 
