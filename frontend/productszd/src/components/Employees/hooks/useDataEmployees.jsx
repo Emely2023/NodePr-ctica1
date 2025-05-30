@@ -1,7 +1,7 @@
 // src/components/Employees/hooks/useDataEmployees.js
 import { useEffect, useState } from "react";
 
-const API_URL = "https://nodepr-ctica1.onrender.com";
+const API_URL = "https://nodepr-ctica1.onrender.com/employees";
 
 const useDataEmployees = () => {
   const [employees, setEmployees] = useState([]);

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API_URL = "https://nodepr-ctica1.onrender.com";
+const API_URL = "https://nodepr-ctica1.onrender.com/api/providers";
 
 const useDataProviders = () => {
   const [providers, setProviders] = useState([]);

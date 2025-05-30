@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const API_URL = "https://nodepr-ctica1.onrender.com";
+const API_URL = "https://nodepr-ctica1.onrender.com/api/products";
 
 const useDataProducts = () => {
   const [products, setProducts] = useState([]);
