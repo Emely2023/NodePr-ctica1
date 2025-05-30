@@ -17,12 +17,12 @@ import { validateAuthToken } from "./src/middlewares/validateAuthToken.js";
 import cors from "cors"
  
  
-//creo una constante que es igual a la libreria que importé
+//creo una constante que es igual a la libreria que importé//
 const app = express(); 
 
 app.use(
   cors({
-    origin: "http://node-pr-ctica1.vercel.app",
+    origin: "https://node-pr-ctica1.vercel.app",
     // Permitir envío de cookies y credenciales
     credentials: true
     
