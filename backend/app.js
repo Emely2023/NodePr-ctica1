@@ -15,7 +15,7 @@ import providersRoutes from "./src/routes/providers.js";
 import brandsRoutes from "./src/routes/brands.js";
 import { validateAuthToken } from "./src/middlewares/validateAuthToken.js";
 import cors from "cors"
- 
+ import faqsRoutes from "./src/routes/faqs.js"
  
 //creo una constante que es igual a la libreria que importé//
 const app = express(); 
@@ -43,6 +43,7 @@ app.use("/api/products", productsRoutes);
 app.use("/api/clientes", clientes);
 app.use("/api/employees",empleadosRoutes);
 app.use("/api/branches", branchesRoutes);
+app.use("/api/faqs", faqsRoutes)
 
 //app.use("/api/sucursales",sucursalesRoutes);
 app.use("/api/reviews",Reviews);
@@ -51,7 +52,6 @@ app.use("/api/registerEmployee",registerEmployeesRoutes);
 //app.use("/api/registerEmployee", validateAuthToken (["admin"]), registerEmployeesRoutes);
 app.use("/api/login",loginRoutes)
 app.use("/api/logout",logoutRoutes)
-
 app.use("/api/registerClients",registerClientsRoutes)
 
 app.use("/api/recoveryPassword",recoveryPasswordRoutes);
