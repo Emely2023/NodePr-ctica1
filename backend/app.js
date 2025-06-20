@@ -16,7 +16,7 @@ import brandsRoutes from "./src/routes/brands.js";
 import { validateAuthToken } from "./src/middlewares/validateAuthToken.js";
 import cors from "cors"
  import faqsRoutes from "./src/routes/faqs.js"
- 
+ import salesRoutes from "./src/routes/sales.js"
 //creo una constante que es igual a la libreria que importé//
 const app = express(); 
 
@@ -44,7 +44,7 @@ app.use("/api/clientes", clientes);
 app.use("/api/employees",empleadosRoutes);
 app.use("/api/branches", branchesRoutes);
 app.use("/api/faqs", faqsRoutes)
-
+app.use("/api/sales", salesRoutes)
 //app.use("/api/sucursales",sucursalesRoutes);
 app.use("/api/reviews",Reviews);
 
