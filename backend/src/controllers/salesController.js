@@ -102,14 +102,20 @@ salesController.totalEarnings = async (req,res) => {
     }
 };
 
-salesController.insertSales = async (req, res) =>{
+salesController.insertSales = async (req,res) => {
     try {
-        
-    } catch (error) {
-        
-    }
-}
+        const { product, category, customer, total, date} = req.body;
+         
+        const newSale = new SalesModel({product,category,customer,total,date})
  
+        await newSale.save()
+ 
+        res.status(200).json({message: "Sale saved"})
+    } catch (error) {
+        console.log("error"+error)
+        res.status(500).json({message: "Internal server error"})
+    }
+};
  
 export default salesController;
  
